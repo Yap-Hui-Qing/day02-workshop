@@ -5,7 +5,9 @@ import java.util.Random;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Deck{
+// use a list to store deck of cards instead
+
+public class Deckv2{
 
     public static final String[] SUIT = {
         "Diamond", "Spade", "Hearts", "Clubs"
@@ -19,52 +21,47 @@ public class Deck{
         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
     };
 
-    protected Cards[] cards;
+    // convert deck of cards to use List
+    protected List<Cards> cardsList = new LinkedList<>();
 
-    public Deck(){
-        int idx = 0;
-        cards = new Cards[52]; // create an array of type Cards with 52 Cards
+    public Deckv2(){
         for (int s = 0; s < SUIT.length; s+=1){
             String suit = SUIT[s];
             for (int n = 0; n < NAMES.length; n+=1){
                 String name = NAMES[n];
                 int value = VALUES[n];
                 Cards card = new Cards(suit, name, value);
-                cards[idx] = card;
-                idx += 1;
+                cardsList.add(card);
             }
         }
     }
 
-    public Deck Shuffle(){
-        Deck shuffledDeck = new Deck();
-        Deck deck = new Deck();
+    public Deckv2 Shuffle(){
+        Deckv2 deck = new Deckv2();
+        Deckv2 shuffledDeck = new Deckv2();
 
         Random rand = new SecureRandom();
 
-        for (int i = 0; i < cards.length; i += 1){
+        for (int i = 0; i < cardsList.size(); i += 1){
             int r = i + rand.nextInt(52-i);
             Cards temp = deck.get(r);
-            shuffledDeck.set(temp, i);
+            shuffledDeck.set(i, temp);
         }
         return shuffledDeck;
     }
 
-    public Cards get(){
-        return this.get(0);
-    }
-
     public Cards get(int pos){
-        return this.cards[pos];
+        return this.cardsList.get(pos);
     }
 
-    public void set(Cards card, int pos){
-        this.cards[pos] = card;
+    public void set(int pos, Cards card){
+        this.cardsList.set(pos, card);
     }
 
     @Override
     public String toString(){
-        return "Number of cards: %d".formatted(cards.length);
+        return "Number of cards: %d".formatted(cardsList.size());
     }
+
 
 }
