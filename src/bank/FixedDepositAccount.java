@@ -52,13 +52,13 @@ public class FixedDepositAccount extends BankAccount {
 
     // constructors
     public FixedDepositAccount(String holderName, float accountBalance){
-        super(holderName);
-        setAccountBalance(accountBalance);
+        super(holderName,accountBalance);
+        balanceSet = true;
     }
 
     public FixedDepositAccount(String holderName, float accountBalance, float interest){
-        super(holderName);
-        setAccountBalance(accountBalance);
+        super(holderName,accountBalance);
+        balanceSet = true;
         if (interest == 3){
             this.interest = interest;
         } else
